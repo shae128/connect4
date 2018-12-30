@@ -27,7 +27,7 @@ gameBoardMatrix = []
 
 for row in range(6):
     tempRowList = []
-    
+
     for column in range(7):
         tempRowList.append(blueCircle)
 
@@ -43,7 +43,7 @@ def boardToScreen(list, screenClear=True):
             system('clear')         # for unix
         except:
             system('cls')           # for windows
-        
+
     # output a black line
     print()
 
@@ -54,7 +54,7 @@ def boardToScreen(list, screenClear=True):
     print()
 
     for row in list:
-        
+
         for rowB in row:
             print(rowB, end=" ")
 
@@ -68,13 +68,15 @@ def boardToScreen(list, screenClear=True):
 def checkWinTotal(list, player):
 
     if checkWinH(list, player):
+        boardToScreen(gameBoardMatrix)
         return True
 
     if checkWinV(list, player):
+        boardToScreen(gameBoardMatrix)
         return True
 
     return False
-    
+
 
 '''
 Here I defined a function to check if any player won the game
@@ -138,24 +140,14 @@ def checkWinH(list, player):
             # print("connected:", connected)
             # print("row:", row)
             # print(win)
-              
-            if win: 
+
+            if win:
                 return True
 
         else:
             continue
-                
-            
-        # for i in range(4):
-        #     if list[row][center-i] is boxColor:
-        #         win = True
-        #     else:
-        #         win = False
-        #         break
-    
-        # if win:
-        #     return True
-                
+
+
         # for i in range(4):
         #     if list[row][center-i] is boxColor:
         #         win = True
@@ -165,7 +157,17 @@ def checkWinH(list, player):
 
         # if win:
         #     return True
- 
+
+        # for i in range(4):
+        #     if list[row][center-i] is boxColor:
+        #         win = True
+        #     else:
+        #         win = False
+        #         break
+
+        # if win:
+        #     return True
+
     # if win:
     #     print(P1, "Wins")
 
@@ -186,7 +188,7 @@ def checkWinV(list, player):
 
     # matrix height
     matrixHeight = len(list)
-    
+
     # if the center if free go to next column
     for column in range(matrixWidth):
         if (
@@ -203,7 +205,7 @@ def checkWinV(list, player):
                 yellowBox += 1
             elif list[box][column] is greenCircle:
                 greenBox += 1
-                
+
         # now if there are at leaset four box equal to center
         if yellowBox >= 4 or greenBox >= 4:
             # return True
@@ -226,11 +228,11 @@ def checkWinV(list, player):
                     win = False
             if win:
                 return True
-            
+
         else:
             continue
 
- 
+
 # Display Board before any choise
 boardToScreen(gameBoardMatrix)
 
@@ -243,7 +245,7 @@ while True:
     if winGame:
         print(turn, "Won")
         break
-    
+
     if change:
         boardToScreen(gameBoardMatrix)
         change = False
@@ -252,7 +254,7 @@ while True:
         intError = False
     else:
         print(turn + "," + " this column is full please choose anther one!")
-        
+
     try:
         decision = int(input())
 
@@ -263,30 +265,28 @@ while True:
         intError = True
         # print("Please Enter a number!")
         continue
-    
+
     if turn == P1:
         for row in range(len(gameBoardMatrix)-1, -1, -1):
             if gameBoardMatrix[row][decision-1] == blueCircle:
                 gameBoardMatrix[row][decision-1] = greenCircle
                 if checkWinTotal(gameBoardMatrix, P1):
-                    boardToScreen(gameBoardMatrix)
                     winGame = True
                     break
                 else:
                     change = True
                     turn = P2
                     break
-       
+
     else:
         for row in range(len(gameBoardMatrix)-1, -1, -1):
             if gameBoardMatrix[row][decision-1] == blueCircle:
                 gameBoardMatrix[row][decision-1] = yellowCircle
                 if checkWinTotal(gameBoardMatrix, P2):
-                    boardToScreen(gameBoardMatrix)
                     winGame = True
                     break
                 else:
                     change = True
                     turn = P1
                     break
-                
+
