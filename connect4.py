@@ -22,9 +22,10 @@ P1 = "Hossein"
 P2 = "Hana"
 turn = P1
 
-# Creating 6 X 7 matrix to produce game board
+# initializing gameboard matrix
 gameBoardMatrix = []
 
+# Creating 6 X 7 matrix to produce game board
 for row in range(6):
     tempRowList = []
 
@@ -40,15 +41,15 @@ def boardToScreen(list, screenClear=True):
     # clear screen
     if screenClear is True:
         try:
-            system('clear')         # for unix
+            system('clear')  # for unix
         except:
-            system('cls')           # for windows
+            system('cls')  # for windows
 
     # output a black line
     print()
 
     for num in range(len(list[0])):
-        print(num+1, end=" ")
+        print(num + 1, end=" ")
 
     # output a black line
     print()
@@ -103,7 +104,7 @@ def checkWinH(list, player):
     center = len(list[0]) // 2
 
     # if the center free return false
-    for row in range(len(list)-1, -1, -1):
+    for row in range(len(list) - 1, -1, -1):
         if list[row][center] is blueCircle:
             return False
 
@@ -133,7 +134,7 @@ def checkWinH(list, player):
                     break
                 else:
                     currentBox = i
-                    # Becuase it does not count itself 
+                    # Becuase it does not count itself
                     connected = 1
                     win = False
 
@@ -146,7 +147,6 @@ def checkWinH(list, player):
 
         else:
             continue
-
 
         # for i in range(4):
         #     if list[row][center-i] is boxColor:
@@ -191,10 +191,8 @@ def checkWinV(list, player):
 
     # if the center if free go to next column
     for column in range(matrixWidth):
-        if (
-                list[center][column] is blueCircle or
-                list[center][column] != list[center-1][column]
-        ):
+        if (list[center][column] is blueCircle
+                or list[center][column] != list[center - 1][column]):
             continue
 
         # count same color as center for current column
@@ -236,7 +234,6 @@ def checkWinV(list, player):
 # Display Board before any choise
 boardToScreen(gameBoardMatrix)
 
-
 change = True
 intError = False
 winGame = False
@@ -250,7 +247,8 @@ while True:
         boardToScreen(gameBoardMatrix)
         change = False
     elif intError:
-        print(turn + "," + " please enter a number between from 1 to", len(gameBoardMatrix[0]))
+        print(turn + "," + " please enter a number between from 1 to",
+              len(gameBoardMatrix[0]))
         intError = False
     else:
         print(turn + "," + " this column is full please choose anther one!")
@@ -267,9 +265,9 @@ while True:
         continue
 
     if turn == P1:
-        for row in range(len(gameBoardMatrix)-1, -1, -1):
-            if gameBoardMatrix[row][decision-1] == blueCircle:
-                gameBoardMatrix[row][decision-1] = greenCircle
+        for row in range(len(gameBoardMatrix) - 1, -1, -1):
+            if gameBoardMatrix[row][decision - 1] == blueCircle:
+                gameBoardMatrix[row][decision - 1] = greenCircle
                 if checkWinTotal(gameBoardMatrix, P1):
                     winGame = True
                     break
@@ -279,9 +277,9 @@ while True:
                     break
 
     else:
-        for row in range(len(gameBoardMatrix)-1, -1, -1):
-            if gameBoardMatrix[row][decision-1] == blueCircle:
-                gameBoardMatrix[row][decision-1] = yellowCircle
+        for row in range(len(gameBoardMatrix) - 1, -1, -1):
+            if gameBoardMatrix[row][decision - 1] == blueCircle:
+                gameBoardMatrix[row][decision - 1] = yellowCircle
                 if checkWinTotal(gameBoardMatrix, P2):
                     winGame = True
                     break
@@ -289,4 +287,3 @@ while True:
                     change = True
                     turn = P1
                     break
-
