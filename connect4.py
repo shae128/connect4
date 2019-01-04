@@ -3,6 +3,18 @@ This a terminal simulation
 of Connect 4 Game
 Via Python
 '''
+'''
+Here I defined a function to check if any player won the game
+but in the horizontal sense. Acctually, checkWinH stands for
+Check Win Horizontal
+
+First of all I check horizontal rows,
+if the central box of a horizontal row is not full yet
+that row can not have four same color box. so the function
+returns False. If not, there are step by step controls as
+you can see in function.
+
+'''
 
 # import required modules
 import sys
@@ -76,23 +88,14 @@ def checkWinTotal(list, player):
         boardToScreen(gameBoardMatrix)
         return True
 
+    if checkWinD(list, player):
+        boardToScreen(gameBoardMatrix)
+        return True
+
     return False
 
 
-'''
-Here I defined a function to check if any player won the game
-but in the horizontal sense. Acctually, checkWinH stands for
-Check Win Horizontal
-
-First of all I check horizontal rows, 
-if the central box of a horizontal row is not full yet
-that row can not have four same color box. so the function 
-returns False. If not, there are step by step controls as 
-you can see in function.
-
-'''
-
-
+# Check win Horizontal
 def checkWinH(list, player):
     win = False
     if player == P1:
@@ -148,29 +151,6 @@ def checkWinH(list, player):
         else:
             continue
 
-        # for i in range(4):
-        #     if list[row][center-i] is boxColor:
-        #         win = True
-        #     else:
-        #         win = False
-        #         break
-
-        # if win:
-        #     return True
-
-        # for i in range(4):
-        #     if list[row][center-i] is boxColor:
-        #         win = True
-        #     else:
-        #         win = False
-        #         break
-
-        # if win:
-        #     return True
-
-    # if win:
-    #     print(P1, "Wins")
-
 
 # Check win Vertical
 def checkWinV(list, player):
@@ -198,6 +178,7 @@ def checkWinV(list, player):
         # count same color as center for current column
         yellowBox = 0
         greenBox = 0
+
         for box in range(matrixHeight):
             if list[box][column] is yellowCircle:
                 yellowBox += 1
@@ -229,6 +210,129 @@ def checkWinV(list, player):
 
         else:
             continue
+
+
+# Check Diagonal win
+def checkWinD(list, player):
+    rowCenter = len(list) // 2
+    columnCenter = len(list[0]) // 2
+
+    # determine player color
+    if player == P1:
+        playerColor = greenCircle
+    else:
+        playerColor = yellowCircle
+
+    for i in range(rowCenter):
+        connected = 1
+
+        for j in range(len(list)):
+            tempRow = i + j
+            tempColumn = j
+
+            if (tempColumn >= len(list[0]) - 1 or tempRow >= len(list) - 1):
+                break
+
+            if (list[tempRow][tempColumn] is playerColor
+                    and list[tempRow + 1][tempColumn + 1] is playerColor):
+                connected += 1
+
+                # Player won
+                if connected is 4:
+                    return True
+
+            else:
+                connected = 1
+
+    for i in range(columnCenter + 1):
+        connected = 1
+
+        for j in range(len(list)):
+            tempRow = j
+            tempColumn = j + i
+
+            if (tempColumn >= len(list[0]) - 1 or tempRow >= len(list) - 1):
+                break
+
+            if (list[tempRow][tempColumn] is playerColor
+                    and list[tempRow + 1][tempColumn + 1] is playerColor):
+                connected += 1
+
+                # Player won
+                if connected is 4:
+                    return True
+
+            else:
+                connected = 1
+
+    for i in range(len(list) - 1, rowCenter - 1, -1):
+        connected = 1
+
+        for j in range(len(list)):
+            tempRow = i - j
+            tempColumn = j
+
+            if tempRow is 0:
+                continue
+
+            if (list[tempRow][tempColumn] is playerColor
+                    and list[tempRow - 1][tempColumn + 1] is playerColor):
+                connected += 1
+
+                # Player won
+                if connected is 4:
+                    return True
+
+            else:
+                connected = 1
+
+    for i in range(1, len(list[0])):
+        connected = 1
+
+        for j in range(len(list)):
+            tempRow = len(list) - 1 - j
+            tempColumn = i + j
+
+            if (tempRow is 0 or tempColumn >= len(list[0]) - 1):
+                continue
+
+            if (list[tempRow][tempColumn] is playerColor
+                    and list[tempRow - 1][tempColumn + 1] is playerColor):
+                connected += 1
+
+                print("row", tempRow)
+                print("column", tempColumn)
+                print("connected", connected)
+                # Player won
+                if connected is 4:
+                    return True
+
+            else:
+                connected = 1
+
+            # if list[tempRow][tempColumn] is yellowCircle:
+            #     yellowBox += 1
+            # elif list[tempRow][tempColumn] is greenCircle:
+            #     greenBox += 1
+
+            #     if (yellowBox >= 4 or greenBox >= 4):
+            #         return True
+            #     else:
+            #         continue
+
+    # if column >= row:
+    #     row = 0
+    #     column = column - row
+
+    #     for i in range(maxRow):
+    #         if list[row][column] is boxColor:
+    #             connected += 1
+
+    #             if connected is 4:
+    #                 return True
+
+    # if row > column:
+    #     print("row: ", row)
 
 
 # Display Board before any choise
