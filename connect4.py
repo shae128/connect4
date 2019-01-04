@@ -3,18 +3,6 @@ This a terminal simulation
 of Connect 4 Game
 Via Python
 '''
-'''
-Here I defined a function to check if any player won the game
-but in the horizontal sense. Acctually, checkWinH stands for
-Check Win Horizontal
-
-First of all I check horizontal rows,
-if the central box of a horizontal row is not full yet
-that row can not have four same color box. so the function
-returns False. If not, there are step by step controls as
-you can see in function.
-
-'''
 
 # import required modules
 import sys
@@ -140,10 +128,6 @@ def checkWinH(list, player):
                     # Becuase it does not count itself
                     connected = 1
                     win = False
-
-            # print("connected:", connected)
-            # print("row:", row)
-            # print(win)
 
             if win:
                 return True
@@ -300,39 +284,12 @@ def checkWinD(list, player):
                     and list[tempRow - 1][tempColumn + 1] is playerColor):
                 connected += 1
 
-                print("row", tempRow)
-                print("column", tempColumn)
-                print("connected", connected)
                 # Player won
                 if connected is 4:
                     return True
 
             else:
                 connected = 1
-
-            # if list[tempRow][tempColumn] is yellowCircle:
-            #     yellowBox += 1
-            # elif list[tempRow][tempColumn] is greenCircle:
-            #     greenBox += 1
-
-            #     if (yellowBox >= 4 or greenBox >= 4):
-            #         return True
-            #     else:
-            #         continue
-
-    # if column >= row:
-    #     row = 0
-    #     column = column - row
-
-    #     for i in range(maxRow):
-    #         if list[row][column] is boxColor:
-    #             connected += 1
-
-    #             if connected is 4:
-    #                 return True
-
-    # if row > column:
-    #     print("row: ", row)
 
 
 # Display Board before any choise
@@ -365,7 +322,6 @@ while True:
             continue
     except ValueError:
         intError = True
-        # print("Please Enter a number!")
         continue
 
     if turn == P1:
