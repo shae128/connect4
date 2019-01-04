@@ -14,12 +14,12 @@ yellowCircle = colored(u'\u25C9', 'yellow')
 blueCircle = colored(u'\u25C9', 'blue', attrs=['bold'])
 
 # Players Name
-# P1 = input("Please Enter Player 1 name: \n")
-# P2 = input("Please Enter Player 2 name: \n")
+P1 = input("Please Enter Player 1 name: \n")
+P2 = input("Please Enter Player 2 name: \n")
 
-P1 = "Hossein"
-P2 = "Hana"
+# Always game begins with player 1
 turn = P1
+
 
 # initializing gameboard matrix
 gameBoardMatrix = []
